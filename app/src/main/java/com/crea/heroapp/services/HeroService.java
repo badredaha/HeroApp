@@ -7,6 +7,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.crea.heroapp.activities.MainActivity;
+import com.crea.heroapp.common.Constants;
 import com.crea.heroapp.interfaces.HeroServiceListener;
 import com.crea.heroapp.models.Hero;
 import com.crea.heroapp.utils.Util;
@@ -34,7 +35,7 @@ public class HeroService {
 
         // Fetch API
         // Volley
-        String url = "https://www.superheroapi.com/api.php/10215639321322627/search/" + name;
+        String url = Constants.APIConfig.END_POINT_SEARCH_NAME + name;
         loadFromAPI(url);
         // Fetch DataBase
 
