@@ -11,12 +11,14 @@ import com.crea.heroapp.common.Constants;
 import com.crea.heroapp.interfaces.HeroServiceListener;
 import com.crea.heroapp.models.Hero;
 import com.crea.heroapp.utils.Util;
+import com.crea.heroapp.workers.DBManager;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class HeroService {
 
@@ -31,15 +33,29 @@ public class HeroService {
      * */
 
     // Get Hero By Name
-    public ArrayList<Hero> getHeroByName(String name) {
+    public void getHeroByName(String name) {
 
         // Fetch API
         // Volley
         String url = Constants.APIConfig.END_POINT_SEARCH_NAME + name;
-        loadFromAPI(url);
-        // Fetch DataBase
+        if (Util.isNetworkAvailable()) {
+            loadFromAPI(url);
+        } else {
+            loadFromDBByName(name);
+        }
 
-        return null;
+        // Fetch DataBase
+    }
+
+
+    private void loadFromDBByName(String name) {
+        ArrayList<Hero> heros = (ArrayList<Hero>) DBManager.getInstance().getAppDataBase().heroDao().findByName(name);
+        if (heros.size() > 0) {
+            HeroService.this.listener.responseWithSuccess(heros);
+
+        } else {
+            HeroService.this.listener.responseWithError("No Hero Found");
+        }
     }
 
     private void loadFromAPI(String url) {
@@ -68,12 +84,13 @@ public class HeroService {
                                 hero.setId(id);
                                 hero.setName(name);
                                 hero.setUrl(url);
-
                                 heros.add(hero);
                             }
 
                             if (heros.size() > 0) {
+                                DBManager.getInstance().getAppDataBase().heroDao().insertAll(heros);
                                 HeroService.this.listener.responseWithSuccess(heros);
+
                             } else {
                                 HeroService.this.listener.responseWithError("No Hero Found");
                             }
@@ -96,12 +113,13 @@ public class HeroService {
         queue.add(stringRequest);
     }
 
+    //TODO: Exercice
     // Get Hero By ID
     public Hero getHeroByID(int id) {
-
         return new Hero();
     }
 
+    //TODO: Exercice
     // Get Hero by Power
     public ArrayList<Hero> getHeroByPower(String power) {
 

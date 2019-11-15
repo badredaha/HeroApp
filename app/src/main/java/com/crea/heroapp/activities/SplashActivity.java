@@ -19,7 +19,6 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        //TODO Delay to push MainActivity
 
         new Handler().postDelayed(new Runnable() {
             @Override
