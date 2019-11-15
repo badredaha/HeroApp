@@ -4,7 +4,7 @@ import android.util.Log;
 
 public class Util {
 
-    public static void Log(String tag, String message){
-        Log.d(tag,message);
+    public static void Log(String tag, String message) {
+        Log.d(tag, message);
     }
 }

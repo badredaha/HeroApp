@@ -72,12 +72,12 @@ public class ListHerosFragment extends Fragment {
         progressBar.setVisibility(show ? View.VISIBLE : View.INVISIBLE);
     }
 
-    private void setupRecyclerView(ArrayList<Hero> heros){
+    private void setupRecyclerView(ArrayList<Hero> heros) {
         RecyclerView recyclerView = getView().findViewById(R.id.list_heros);
         recyclerView.setVisibility(View.VISIBLE);
         /*
          * SETUP RECYCLERVIEW
-        * */
+         * */
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this.getContext());
         recyclerView.setLayoutManager(layoutManager);

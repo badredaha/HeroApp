@@ -9,7 +9,7 @@ import com.crea.heroapp.R;
 
 public class UtilNavigationFragment {
 
-   public static void nextFragment(Fragment currentFragment, FragmentActivity context){
+    public static void nextFragment(Fragment currentFragment, FragmentActivity context) {
         FragmentManager fm = context.getSupportFragmentManager();
         fm.beginTransaction().replace(R.id.container_fragment, currentFragment, currentFragment.getClass().getSimpleName()).addToBackStack(null).commit();
     }

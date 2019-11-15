@@ -8,10 +8,7 @@ class Hero {
     var url: String? = null
 
 
-
-    constructor() {
-
-    }
+    constructor()
 
     constructor(id: Long?, name: String, power: String) {
         this.id = id
